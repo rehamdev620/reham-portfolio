@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ريهام المحضار | مطورة ويب متكاملة</title>
+    <meta name="description"
+        content="ريهام المحضار، مطورة Full Stack متخصصة في تصميم وتطوير المواقع والأنظمة الرقمية لأصحاب المشاريع.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        burgundy: "#2B0E15",
+                        cream: "#F7F1EB",
+                        brown: "#70452A",
+                        beige: "#D8C5B0",
+                        soft: "#FCF9F6"
+                    },
+                    fontFamily: {
+                        alex: ["Alexandria", "sans-serif"]
+                    },
+                    boxShadow: {
+                        soft: "0 12px 35px rgba(43,14,21,0.07)"
+                    }
+                }
+            }
+        };
+    </script>
+
+   
+
+    
+
+    <style>
+        /* إعدادات بسيطة لا يغطيها Tailwind مباشرة */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family: "Alexandria", sans-serif;
+        }
+
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        .project-preview {
+            min-height: 210px;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #2B0E15;
+            border-radius: 999px;
+            transition: transform .25s ease, opacity .25s ease;
+        }
+
+        .menu-icon.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .menu-icon.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-icon.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-cream text-burgundy antialiased">
+
+    <!-- Navbar -->
+    <header id="navbar" class="sticky top-0 z-50 border-b border-[#681A2E] bg-cream/95 backdrop-blur-md">
+        <div class="mx-auto flex min-h-[78px] max-w-7xl items-center justify-between gap-4 px-5 lg:px-8">
+
+            <a href="#home" class="flex shrink-0 items-center gap-3" aria-label="الصفحة الرئيسية">
+                <img src="images/logo.jpg" alt="شعار ريهام المحضار" class="h-11 w-11 rounded-full object-cover"
+                    onerror="this.style.display='none'">
+                <span class="flex flex-col">
+                    <span class="text-sm font-bold sm:text-base">ريهام المحضار</span>
+                    <span dir="ltr" class="mt-1 text-[10px] font-medium tracking-wide text-[#681A2E] sm:text-xs">Full Stack
+                        Developer</span>
+                </span>
+            </a>
+
+            <nav id="mainNav"
+                class="invisible fixed inset-x-0 top-[78px] flex max-h-[calc(100dvh-78px)] -translate-y-2 flex-col gap-1 overflow-y-auto border-b border-beige bg-cream px-5 py-5 opacity-0 transition-all duration-200 lg:visible lg:static lg:max-h-none lg:translate-y-0 lg:flex-row lg:items-center lg:gap-7 lg:overflow-visible lg:border-0 lg:bg-transparent lg:p-0 lg:opacity-100"
+                aria-label="القائمة الرئيسية">
+                <a class="nav-link rounded-lg px-3 py-3 text-sm transition hover:bg-white lg:px-0 lg:py-2 lg:hover:bg-transparent lg:hover:text-[#681A2E]"
+                    href="#home">الرئيسية</a>
+                <a class="nav-link rounded-lg px-3 py-3 text-sm transition hover:bg-white lg:px-0 lg:py-2 lg:hover:bg-transparent lg:hover:text-[#681A2E]"
+                    href="#projects">أعمالي</a>
+                <a class="nav-link rounded-lg px-3 py-3 text-sm transition hover:bg-white lg:px-0 lg:py-2 lg:hover:bg-transparent lg:hover:text-[#681A2E]"
+                    href="#services">خدماتي</a>
+                <a class="nav-link rounded-lg px-3 py-3 text-sm transition hover:bg-white lg:px-0 lg:py-2 lg:hover:bg-transparent lg:hover:text-[#681A2E]"
+                    href="#about">من أنا</a>
+                <a class="nav-link rounded-lg px-3 py-3 text-sm transition hover:bg-white lg:px-0 lg:py-2 lg:hover:bg-transparent lg:hover:text-[#681A2E]"
+                    href="#contact">تواصل معي</a>
+            </nav>
+
+            <a href="#contact"
+                class="hidden shrink-0 items-center gap-2 rounded-full bg-burgundy px-5 py-3 text-xs font-semibold text-white transition hover:bg-[#681A2E] sm:inline-flex">
+                ابدأ مشروعك <i class="fa-solid fa-arrow-left"></i>
+            </a>
+
+            <button id="menuToggle" type="button"
+                class="menu-icon flex h-11 w-11 shrink-0 flex-col items-center justify-center gap-[5px] rounded-xl border border-[#681A2E] bg-soft lg:hidden"
+                aria-label="فتح القائمة" aria-expanded="false" aria-controls="mainNav">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section id="home" class="relative overflow-hidden">
+            <div
+                class="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:py-24 lg:grid-cols-2 lg:gap-20 lg:px-8 lg:py-28">
+                <div class="reveal">
+                    <div
+                        class="mb-6 inline-flex items-center gap-2 rounded-full border border-[#681A2E] bg-white/60 px-4 py-2 text-xs font-medium text-[#681A2E]">
+                        <span class="h-2 w-2 rounded-full bg-[#681A2E]"></span>
+                        أساعد أفكارك تتحول إلى واقع رقمي
+                    </div>
+
+            <h1 class="max-w-2xl text-3xl font-bold leading-[1.8] sm:text-4xl lg:text-5xl lg:leading-[2.2]">
+                أبني مواقع ويب
+                <span class="inline-block align-baseline text-[#681A2E]">تصنع فرقًا</span>
+                لمشروعك.
+            </h1>
+
+
+
+
+                    <p class="mt-6 max-w-xl text-sm leading-8 text-[#681A2E] sm:text-base sm:leading-9">
+                        أنا ريهام، مطورة ويب متكاملة. أساعد أصحاب المشاريع على بناء حضور رقمي احترافي من خلال مواقع سهلة
+                        الاستخدام وحلول تقنية تناسب احتياجاتهم.
+                    </p>
+
+                    <div class="mt-8 flex flex-wrap gap-3">
+                        <a href="#projects"
+                            class="inline-flex items-center gap-3 rounded-full bg-burgundy px-6 py-4 text-sm font-semibold text-white transition hover:bg-[#681A2E]">
+                            استكشف أعمالي <i class="fa-solid fa-arrow-left"></i>
+                        </a>
+                        <a href="#contact"
+                            class="inline-flex items-center gap-3 rounded-full border border-[#681A2E] bg-white/50 px-6 py-4 text-sm font-semibold transition hover:bg-white">
+                            لنتحدث عن مشروعك <i class="fa-regular fa-paper-plane"></i>
+                        </a>
+                    </div>
+
+                    <div class="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-xs text-[#681A2E]">
+                        <span><i class="fa-solid fa-check ml-2"></i>تصميم متجاوب</span>
+                        <span><i class="fa-solid fa-check ml-2"></i>تجربة استخدام واضحة</span>
+                        <span><i class="fa-solid fa-check ml-2"></i>تطوير حسب احتياجك</span>
+                    </div>
+                </div>
+
+                <div class="reveal relative mx-auto w-full max-w-lg">
+                    <div class="absolute -right-5 -top-5 h-28 w-28 rounded-full border border-[#681A2E]"></div>
+                    <div class="absolute -bottom-5 -left-5 h-32 w-32 rounded-full bg-[#681A2E]"></div>
+
+                    <div class="relative rounded-[2rem] border border-[#681A2E] bg-soft p-5 shadow-soft sm:p-7">
+                        <div class="flex items-center justify-between border-b border-[#681A2E] pb-4">
+                            <div class="flex gap-1.5">
+                                <span class="h-2.5 w-2.5 rounded-full bg-[#681A2E]"></span>
+                                <span class="h-2.5 w-2.5 rounded-full bg-[#681A2E]"></span>
+                                <span class="h-2.5 w-2.5 rounded-full bg-[#681A2E]"></span>
+                            </div>
+                            <span dir="ltr" class="text-[10px] text-[#681A2E]">reham.dev</span>
+                        </div>
+
+                        <div class="py-8 sm:py-10">
+                            <span class="text-xs font-medium text-[#681A2E]">أحوّل الفكرة إلى تجربة رقمية</span>
+                            <h2 class="mt-4 text-2xl font-bold leading-relaxed sm:text-3xl">من أول سطر كود، إلى موقع
+                                جاهز لعملائك.</h2>
+                            <div class="mt-6 h-1.5 w-20 rounded-full bg-[#681A2E]"></div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="rounded-2xl bg-cream p-4">
+                                <i class="fa-solid fa-code text-lg text-[#681A2E]"></i>
+                                <p class="mt-3 text-xs font-semibold">تطوير الويب</p>
+                                <p class="mt-1 text-[10px] leading-6 text-[#681A2E]">واجهات وبرمجة</p>
+                            </div>
+                            <div class="rounded-2xl bg-burgundy p-4 text-white">
+                                <i class="fa-solid fa-laptop-code text-lg"></i>
+                                <p class="mt-3 text-xs font-semibold">حلول رقمية</p>
+                                <p class="mt-1 text-[10px] leading-6 text-white/70">حسب احتياج مشروعك</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 flex items-center gap-3 rounded-2xl border border-[#681A2E] p-4">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-beige/40">
+                                <i class="fa-solid fa-lightbulb text-[#681A2E]"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold">كل مشروع يبدأ بفكرة</p>
+                                <p class="mt-1 text-[10px] text-[#681A2E]">والخطوة الأولى هي التخطيط الصحيح</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section id="services" class="bg-soft py-20 sm:py-24">
+            <div class="mx-auto max-w-7xl px-5 lg:px-8">
+                <div class="reveal mx-auto mb-12 max-w-2xl text-center">
+                    <span class="text-xs font-bold  text-[#681A2E]">خدماتي</span>
+                    <h2 class="mt-4 text-2xl font-bold sm:text-3xl">كيف أقدر أساعد مشروعك؟</h2>
+                    <p class="mt-4 text-sm leading-8 text-[#681A2E]">أقدّم حلولًا رقمية عملية تبدأ من فهم احتياجك وتنتهي
+                        بموقع يخدم أهداف مشروعك.</p>
+                </div>
+
+                <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    <article
+                        class="reveal rounded-3xl border border-[#681A2E] bg-white p-7 transition hover:-translate-y-1 hover:shadow-soft">
+                        <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-cream text-xl text-[#681A2E]">
+                            <i class="fa-solid fa-window-maximize"></i></div>
+                        <h3 class="mt-6 text-base font-bold">تصميم وتطوير المواقع</h3>
+                        <p class="mt-3 text-sm leading-8 text-[#681A2E]">مواقع تعريفية وتجارية بتصميم متناسق وتجربة استخدام
+                            واضحة على الجوال والكمبيوتر.</p>
+                    </article>
+
+                    <article
+                        class="reveal rounded-3xl border border-[#681A2E] bg-white p-7 transition hover:-translate-y-1 hover:shadow-soft">
+                        <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-cream text-xl text-[#681A2E]">
+                            <i class="fa-solid fa-gears"></i></div>
+                        <h3 class="mt-6 text-base font-bold">تطوير الأنظمة والوظائف</h3>
+                        <p class="mt-3 text-sm leading-8 text-[#681A2E]">إضافة نماذج، قواعد بيانات، لوحات تحكم، وإدارة محتوى
+                            بحسب متطلبات المشروع.</p>
+                    </article>
+
+                    <article
+                        class="reveal rounded-3xl border border-[#681A2E] bg-white p-7 transition hover:-translate-y-1 hover:shadow-soft sm:col-span-2 lg:col-span-1">
+                        <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-cream text-xl text-[#681A2E]">
+                            <i class="fa-solid fa-rocket"></i></div>
+                        <h3 class="mt-6 text-base font-bold">تحسين وتطوير المواقع</h3>
+                        <p class="mt-3 text-sm leading-8 text-[#681A2E]">تعديل واجهات موجودة، إضافة خصائص جديدة، وتجهيز
+                            الموقع للنشر وفق احتياجاتك.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="bg-[#F7F1EB] px-5 py-16 md:px-10 lg:px-20">
+        
+            <div class="mx-auto max-w-7xl">
+        
+                <!-- Section Heading -->
+                <div class="mb-10 text-center">
+                    <p class="mb-3 font-semibold text-[#681A2E]">
+                        معرض الأعمال
+                    </p>
+                    <h2 class="text-3xl font-bold text-[#2B0E15] md:text-4xl">
+                        مشاريع أعتز بها
+                    </h2>
+                    <p class="mx-auto mt-4 max-w-xl leading-8 text-[#70452A]">
+                        مجموعة من المشاريع التي عملت عليها لتقديم تجارب رقمية
+                        عملية تجمع بين التصميم والبرمجة.
+                    </p>
+                </div>
+        
+                <!-- Projects Grid -->
+                <div class="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+        
+                    <!-- ATHAR -->
+                    <div
+                        class="overflow-hidden rounded-2xl border border-[#D8C5B0] bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+                        <a href="https://atharchalet.netlify.app/" target="_blank" rel="noopener noreferrer">
+                            <img src="images/athar.jpg" alt="مشروع أثر"
+                                class="h-56 w-full object-cover transition duration-500 hover:scale-105">
+                        </a>
+                        <div class="p-5 text-right">
+                            <h3 class="mb-2 text-xl font-bold text-[#2B0E15]">
+                                أثَر | ATHAR
+                            </h3>
+                            <p class="mb-5 text-sm leading-7 text-[#681A2E]">
+                                موقع لعرض تجربة الحجز الرقمي للشاليهات
+                                بتصميم بوهيمي دافئ.
+                            </p>
+                            <a href="https://atharchalet.netlify.app/" target="_blank" rel="noopener noreferrer"
+                                class="flex w-full items-center justify-center gap-2 rounded-xl bg-[#681A2E] px-5 py-3 font-semibold text-white transition hover:bg-[#2B0E15]">
+                                <span>عرض المشروع</span>
+                                <i class="fas fa-arrow-up-left-from-circle"></i>
+                            </a>
+                        </div>
+                    </div>
+        
+                    <!-- NOMAHNIGHT -->
+                    <div
+                        class="overflow-hidden rounded-2xl border border-[#D8C5B0] bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+                        <a href="https://nomahnight.netlify.app/" target="_blank" rel="noopener noreferrer">
+                            <img src="images/nomahnight.jpg" alt="مشروع Nomahnight"
+                                class="h-56 w-full object-cover transition duration-500 hover:scale-105">
+                        </a>
+                        <div class="p-5 text-right">
+                            <h3 class="mb-2 text-xl font-bold text-[#2B0E15]">
+                                Nomahnight
+                            </h3>
+                            <p class="mb-5 text-sm leading-7 text-[#681A2E]">
+                                متجر إلكتروني للبيجامات، يضم عرض المنتجات
+                                والمفضلة والسلة وإتمام الطلب.
+                            </p>
+                            <a href="https://nomahnight.netlify.app/" target="_blank" rel="noopener noreferrer"
+                                class="flex w-full items-center justify-center gap-2 rounded-xl bg-[#681A2E] px-5 py-3 font-semibold text-white transition hover:bg-[#2B0E15]">
+                                <span>عرض المشروع</span>
+                                <i class="fas fa-arrow-up-left-from-circle"></i>
+                            </a>
+                        </div>
+                    </div>
+        
+                    <!-- LUMINA CLINIC -->
+                    <div
+                        class="overflow-hidden rounded-2xl border border-[#D8C5B0] bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+                        <a href="https://lumina-clinic0.netlify.app/" target="_blank" rel="noopener noreferrer">
+                            <img src="images/lumina.jpg" alt="مشروع Lumina Clinic"
+                                class="h-56 w-full object-cover transition duration-500 hover:scale-105">
+                        </a>
+                        <div class="p-5 text-right">
+                            <h3 class="mb-2 text-xl font-bold text-[#2B0E15]">
+                                Lumina Clinic
+                            </h3>
+                            <p class="mb-5 text-sm leading-7 text-[#681A2E]">
+                                موقع لعيادة بتصميم عصري يتضمن واجهة تعريفية
+                                ونموذجًا لحجز المواعيد.
+                            </p>
+                            <a href="https://lumina-clinic0.netlify.app/" target="_blank" rel="noopener noreferrer"
+                                class="flex w-full items-center justify-center gap-2 rounded-xl bg-[#681A2E] px-5 py-3 font-semibold text-white transition hover:bg-[#2B0E15]">
+                                <span>عرض المشروع</span>
+                                <i class="fas fa-arrow-up-left-from-circle"></i>
+                            </a>
+                        </div>
+                    </div>
+        
+                    <!-- TITAN PERFORMANCE -->
+                    <div
+                        class="overflow-hidden rounded-2xl border border-[#D8C5B0] bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+                        <a href="https://glittering-squirrel-537740.netlify.app/" target="_blank" rel="noopener noreferrer">
+                            <img src="images/titan.jpg" alt="مشروع TITAN PERFORMANCE"
+                                class="h-56 w-full object-cover transition duration-500 hover:scale-105">
+                        </a>
+                        <div class="p-5 text-right">
+                            <h3 class="mb-2 text-xl font-bold text-[#2B0E15]">
+                                TITAN PERFORMANCE
+                            </h3>
+                            <p class="mb-5 text-sm leading-7 text-[#681A2E]">
+                                موقع لعرض باقات وخدمات اللياقة البدنية
+                                بتصميم رياضي قوي.
+                            </p>
+                            <a href="https://glittering-squirrel-537740.netlify.app/" target="_blank" rel="noopener noreferrer"
+                                class="flex w-full items-center justify-center gap-2 rounded-xl bg-[#681A2E] px-5 py-3 font-semibold text-white transition hover:bg-[#2B0E15]">
+                                <span>عرض المشروع</span>
+                                <i class="fas fa-arrow-up-left-from-circle"></i>
+                            </a>
+                        </div>
+                    </div>
+        
+                    <!-- GRILLO BURGER -->
+                    <div
+                        class="overflow-hidden rounded-2xl border border-[#D8C5B0] bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+                        <a href="https://grilloburger.netlify.app/" target="_blank" rel="noopener noreferrer">
+                            <img src="../images/GRILLO.jpg" alt="مشروع منيو المطعم"
+                                class="h-56 w-full object-cover transition duration-500 hover:scale-105">
+                        </a>
+                        <div class="p-5 text-right">
+                            <h3 class="mb-2 text-xl font-bold text-[#2B0E15]">
+                                Grillo Burger
+                            </h3>
+                            <p class="mb-5 text-sm leading-7 text-[#681A2E]">
+                                تصميم منيو إلكتروني للمطعم يساعد العملاء
+                                على استعراض الأصناف بسهولة.
+                            </p>
+                            <a href="https://grilloburger.netlify.app/" target="_blank" rel="noopener noreferrer"
+                                class="flex w-full items-center justify-center gap-2 rounded-xl bg-[#681A2E] px-5 py-3 font-semibold text-white transition hover:bg-[#2B0E15]">
+                                <span>عرض المشروع</span>
+                                <i class="fas fa-arrow-up-left-from-circle"></i>
+                            </a>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Process -->
+        <section class="bg-burgundy py-20 text-white sm:py-24">
+            <div class="mx-auto max-w-7xl px-5 lg:px-8">
+                <div class="reveal mx-auto mb-12 max-w-2xl text-center">
+                    <span class="text-xs font-bold text-beige">طريقة العمل</span>
+                    <h2 class="mt-4 text-2xl font-bold sm:text-3xl">من الفكرة إلى الإطلاق</h2>
+                    <p class="mt-4 text-sm leading-8 text-white/70">خطوات واضحة تساعدنا على تحويل احتياجك إلى مشروع رقمي
+                        منظم.</p>
+                </div>
+
+                <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                    <article class="reveal rounded-3xl border border-white/15 bg-white/5 p-6">
+                        <span class="text-sm font-bold text-beige">01</span>
+                        <i class="fa-regular fa-comments mt-5 block text-2xl text-beige"></i>
+                        <h3 class="mt-5 text-sm font-bold">نفهم فكرتك</h3>
+                        <p class="mt-3 text-xs leading-7 text-white/70">نحدد هدف المشروع والجمهور والخصائص المطلوبة.</p>
+                    </article>
+                    <article class="reveal rounded-3xl border border-white/15 bg-white/5 p-6">
+                        <span class="text-sm font-bold text-beige">02</span>
+                        <i class="fa-solid fa-pen-ruler mt-5 block text-2xl text-beige"></i>
+                        <h3 class="mt-5 text-sm font-bold">نخطط ونصمم</h3>
+                        <p class="mt-3 text-xs leading-7 text-white/70">نرتب الصفحات ونحدد شكل التجربة قبل التطوير.</p>
+                    </article>
+                    <article class="reveal rounded-3xl border border-white/15 bg-white/5 p-6">
+                        <span class="text-sm font-bold text-beige">03</span>
+                        <i class="fa-solid fa-code mt-5 block text-2xl text-beige"></i>
+                        <h3 class="mt-5 text-sm font-bold">نطوّر ونختبر</h3>
+                        <p class="mt-3 text-xs leading-7 text-white/70">نبني الموقع ونراجع وظائفه على أحجام الشاشات
+                            المختلفة.</p>
+                    </article>
+                    <article class="reveal rounded-3xl border border-white/15 bg-white/5 p-6">
+                        <span class="text-sm font-bold text-beige">04</span>
+                        <i class="fa-solid fa-rocket mt-5 block text-2xl text-beige"></i>
+                        <h3 class="mt-5 text-sm font-bold">نجهّز للإطلاق</h3>
+                        <p class="mt-3 text-xs leading-7 text-white/70">نجهز الملفات للنشر ونتأكد من وضوح خطوات
+                            الاستخدام.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section id="about" class="py-20 sm:py-24">
+            <div class="mx-auto grid max-w-7xl items-center gap-10 px-5 lg:grid-cols-2 lg:gap-20 lg:px-8">
+                <div class="reveal">
+                    <span class="text-xs font-bold text-[#681A2E]">من أنا</span>
+                    <h2 class="mt-4 text-2xl font-bold leading-relaxed sm:text-3xl">أؤمن أن الموقع الجيد يبدأ بفهم
+                        الفكرة.</h2>
+                    <p class="mt-5 text-sm leading-9 text-[#681A2E]">
+                        أنا ريهام المحضار، مطورة Full Stack مهتمة ببناء مواقع الويب وتطوير الحلول الرقمية. أركز على
+                        الجمع بين التصميم الواضح والوظائف العملية حتى يحصل المشروع على تجربة مناسبة لعملائه.
+                    </p>
+                    <p class="mt-4 text-sm leading-9 text-[#681A2E]">
+                        أستمتع بتحويل الأفكار إلى مشاريع قابلة للتجربة والتطوير، والعمل على الواجهة الأمامية والخلفية
+                        بحسب احتياج كل مشروع.
+                    </p>
+                    <a href="#contact"
+                        class="mt-7 inline-flex items-center gap-3 rounded-full bg-burgundy px-6 py-4 text-sm font-semibold text-white transition hover:bg-[#681A2E]">خلينا
+                        نبدأ فكرتك <i class="fa-solid fa-arrow-left"></i></a>
+                </div>
+
+                <div class="reveal rounded-[2rem] border border-[#681A2E] bg-soft p-6 sm:p-8">
+                    <h3 class="text-base font-bold">التقنيات والمهارات</h3>
+                    <p class="mt-2 text-xs leading-7 text-[#681A2E]">أستخدم الأدوات المناسبة بحسب طبيعة المشروع ومتطلباته.
+                    </p>
+
+                    <div class="mt-6 space-y-5">
+                        <div>
+                            <div class="mb-2 flex items-center justify-between text-xs"><span>HTML & CSS</span><i
+                                    class="fa-brands fa-html5 text-[#681A2E]"></i></div>
+                            <div class="h-2 overflow-hidden rounded-full bg-beige/50">
+                                <div class="h-full w-full rounded-full bg-[#681A2E]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mb-2 flex items-center justify-between text-xs"><span>JavaScript</span><i
+                                    class="fa-brands fa-js text-[#681A2E]"></i></div>
+                            <div class="h-2 overflow-hidden rounded-full bg-beige/50">
+                                <div class="h-full w-[85%] rounded-full bg-[#681A2E]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mb-2 flex items-center justify-between text-xs"><span>Tailwind CSS &
+                                    Bootstrap</span><i class="fa-solid fa-palette text-[#681A2E]"></i></div>
+                            <div class="h-2 overflow-hidden rounded-full bg-beige/50">
+                                <div class="h-full w-[85%] rounded-full bg-[#681A2E]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mb-2 flex items-center justify-between text-xs"><span>Firebase & قواعد
+                                    البيانات</span><i class="fa-solid fa-database text-[#681A2E]"></i></div>
+                            <div class="h-2 overflow-hidden rounded-full bg-beige/50">
+                                <div class="h-full w-[75%] rounded-full bg-[#681A2E]"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="bg-soft py-20 sm:py-24">
+            <div class="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-2 lg:gap-20 lg:px-8">
+                <div class="reveal">
+                    <span class="text-xs font-bold text-[#681A2E]">تواصل معي</span>
+                    <h2 class="mt-4 text-2xl font-bold leading-relaxed sm:text-3xl">عندك فكرة مشروع؟ خلينا نتكلم عنها.
+                    </h2>
+                    <p class="mt-5 text-sm leading-9 text-[#681A2E]">سواء عندك مشروع جديد أو تحتاج تطوير موقع موجود، اكتب لي
+                        تفاصيل فكرتك وسنتعرف على احتياجاتها والخطوة المناسبة لها.</p>
+
+                    <div class="mt-8 space-y-4">
+                        <a href="https://www.tiktok.com/@reham.dev620" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-4 rounded-2xl border border-[#681A2E] bg-white p-4 transition hover:shadow-soft">
+                            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-cream text-lg"><i
+                                    class="fa-brands fa-tiktok"></i></span>
+                            <span><span class="block text-xs font-bold">TikTok</span><span dir="ltr"
+                                    class="mt-1 block text-xs text-[#681A2E]">@reham.dev620</span></span>
+                            <i class="fa-solid fa-arrow-up-left-from-square mr-auto text-xs text-[#681A2E]"></i>
+
+                            
+                        </a>
+
+                        <a href="https://www.instagram.com/reham.dev620/" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-4 rounded-2xl border border-[#681A2E] bg-white p-4 transition hover:shadow-md">
+                        
+                            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-cream text-lg">
+                                <i class="fa-brands fa-instagram"></i>
+                            </span>
+                        
+                            <span>
+                                <span class="block text-xs font-bold">Instagram</span>
+                                <span class="mt-1 block text-xs text-[#681A2E]">@reham.dev620</span>
+                            </span>
+                        
+                        </a>
+
+                        <div class="flex items-center gap-4 rounded-2xl border border-[#681A2E] bg-white p-4">
+                            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-cream text-lg"><i
+                                    class="fa-solid fa-laptop-code"></i></span>
+                            <span><span class="block text-xs font-bold">متاحة لمناقشة المشاريع</span><span
+                                    class="mt-1 block text-xs text-[#681A2E]">مواقع ويب وحلول رقمية</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="contactForm" class="reveal rounded-3xl border border-beige bg-white p-6 shadow-soft sm:p-8">
+                    <h3 class="text-base font-bold">احكي لي عن مشروعك</h3>
+                    <p class="mt-2 text-xs leading-7 text-[#681A2E]">عبّي البيانات التالية، وسيفتح واتساب برسالة جاهزة
+                        للإرسال.</p>
+
+                    <label for="name" class="mt-6 block text-xs font-semibold">الاسم</label>
+                    <input id="name" name="name" type="text" required maxlength="100" autocomplete="name"
+                        placeholder="اكتب اسمك"
+                        class="mt-2 w-full rounded-xl border border-[#681A2E] bg-cream/40 px-4 py-3.5 text-sm outline-none transition placeholder:text-brown/50 focus:border-brown focus:ring-2 focus:ring-beige/50">
+
+                    <label for="email" class="mt-5 block text-xs font-semibold">البريد الإلكتروني (اختياري)</label>
+                    <input id="email" name="email" type="email" maxlength="150" autocomplete="email"
+                        placeholder="name@example.com"
+                        class="mt-2 w-full rounded-xl border border-[#681A2E] bg-cream/40 px-4 py-3.5 text-left text-sm outline-none transition placeholder:text-brown/50 focus:border-brown focus:ring-2 focus:ring-beige/50"
+                        dir="ltr">
+
+                    <label for="service" class="mt-5 block text-xs font-semibold">الخدمة المطلوبة</label>
+                    <select id="service" name="service" required
+                        class="mt-2 w-full rounded-xl border border-[#681A2E] bg-cream/40 px-4 py-3.5 text-sm outline-none transition focus:border-brown focus:ring-2 focus:ring-beige/50">
+                        <option value="">اختاري الخدمة</option>
+                        <option>تصميم وتطوير موقع</option>
+                        <option>متجر إلكتروني</option>
+                        <option>نظام أو لوحة تحكم</option>
+                        <option>تطوير موقع موجود</option>
+                        <option>أخرى</option>
+                    </select>
+
+                    <label for="message" class="mt-5 block text-xs font-semibold">تفاصيل المشروع</label>
+                    <textarea id="message" name="message" rows="4" required maxlength="2000"
+                        placeholder="اكتب نبذة بسيطة عن فكرتك..."
+                        class="mt-2 w-full resize-y rounded-xl border border-[#681A2E] bg-cream/40 px-4 py-3.5 text-sm leading-7 outline-none transition placeholder:text-brown/50 focus:border-brown focus:ring-2 focus:ring-beige/50"></textarea>
+
+                    <button type="submit"
+                        class="mt-6 flex w-full items-center justify-center gap-3 rounded-full bg-burgundy px-6 py-4 text-sm font-semibold text-white transition hover:bg-[#681A2E]">
+                        إرسال عبر واتساب <i class="fa-brands fa-whatsapp text-base"></i>
+                    </button>
+                    <p id="formMessage" class="mt-4 hidden text-center text-xs leading-6 text-[#681A2E]" role="status"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-[#681A2E] bg-cream">
+        <div
+            class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-7 text-center sm:flex-row sm:text-right lg:px-8">
+            <a href="#home" class="text-sm font-bold">ريهام المحضار <span class="mr-1 font-normal text-[#681A2E]">| مطورة
+                    ويب متكاملة</span></a>
+            <p class="text-xs text-[#681A2E]">جميع الحقوق محفوظة © <span id="currentYear"></span></p>
+            <a href="#home" class="text-xs text-[#681A2E] transition hover:text-burgundy">العودة للأعلى ↑</a>
+        </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>
